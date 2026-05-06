@@ -70,6 +70,18 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* ── about ── */
+    .about { margin-bottom: 3rem; }
+    .about p {
+      max-width: 65ch;
+      margin-bottom: 1rem;
+    }
+    .about p:last-child { margin-bottom: 0; }
+    .about .availability {
+      color: var(--muted);
+      font-style: italic;
+    }
+
     /* ── project cards ── */
     .card-grid {
       display: grid;
@@ -138,12 +150,26 @@
 
   <div class="intro">
     <h1>Evan Ochsner</h1>
-    <p>Software engineer. I build tools, dig into data, and occasionally put things on the internet.</p>
+    <p><strong>Scientist. Builder.</strong> Physics PhD; eight years as a lead applied scientist at Amazon. I work on hard problems with messy data and ship something useful at the end.</p>
   </div>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>Physics PhD (Maryland), trained at Chicago. Started in gravitational-wave data analysis for LIGO &mdash; post-Newtonian theory, matched-filter search pipelines, co-leading one of the flagship searches.</p>
+    <p>Pivoted to cybersecurity at Sqrrl, a Boston startup spun out of NSA threat-hunting work, where I built detection and analytics on real customer data at enterprise scale. Sqrrl was acquired by Amazon, and I stayed on for eight years as an applied scientist &mdash; one of four scientists who launched Amazon Detective, then working in the Security Analytics and AI Research (SAAR) team as lead scientist on major Detective feature additions and the relaunch of AWS Security Hub.</p>
+    <p>I like problems where the data is messy, the answer matters, and the work has to actually run in production.</p>
+    <p class="availability">Currently searching for my next problem to tackle.</p>
+  </section>
 
   <section>
     <h2>Projects</h2>
     <div class="card-grid">
+
+      <a href="https://toolkit.ochsner.dev" class="card">
+        <span class="tag">Toolkit</span>
+        <h3>Personal Advocacy Toolkit</h3>
+        <p>For people getting stonewalled by an insurer, a provider, a landlord, a debt collector. Evidence intake with forensic integrity, drafting tools with anti-hallucination guard rails, a publication-safety pipeline &mdash; does the legwork so whoever helps you can actually help you.</p>
+      </a>
 
       <a href="https://insurance.ochsner.dev" class="card">
         <span class="tag">Data</span>
