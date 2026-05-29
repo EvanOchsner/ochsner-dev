@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evan Ochsner</title>
+  <script>
+    /* Apply saved theme before first paint to avoid a flash. Default: light. */
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
@@ -21,16 +30,14 @@
       font-size: 16px;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:      oklch(0.18 0.012 250);
-        --surface: #1f1f1d;
-        --border:  #303030;
-        --text:    #e8e8e4;
-        --muted:   #888880;
-        --accent:  #5b9fdb;
-        --accent-h:#7fb8ef;
-      }
+    :root[data-theme="dark"] {
+      --bg:      oklch(0.18 0.012 250);
+      --surface: #1f1f1d;
+      --border:  #303030;
+      --text:    #e8e8e4;
+      --muted:   #888880;
+      --accent:  #5b9fdb;
+      --accent-h:#7fb8ef;
     }
 
     body {
@@ -88,6 +95,26 @@
     .social a.linkedin:hover { color: #0A66C2; }
     .social a.github:hover   { color: var(--text); }
     .social a.scholar:hover  { color: #4285F4; }
+
+    /* ── theme toggle ── */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.15s, transform 0.15s;
+    }
+    .theme-toggle:hover { color: var(--text); transform: translateY(-1px); }
+    .theme-toggle svg { width: 100%; height: 100%; }
+    .theme-toggle .icon-sun { display: none; }
+    :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .icon-sun  { display: inline; }
 
     /* ── section headings ── */
     section h2 {
@@ -203,23 +230,21 @@
       font-feature-settings: "ss01", "cv02";
     }
 
-    @media (prefers-color-scheme: dark) {
-      .collage {
-        /* --c-bg inherits the shared page --bg automatically */
-        --c-rule:      oklch(0.34 0.014 250);
-        --c-rule-soft: oklch(0.27 0.012 250);
-        --c-fg:        oklch(0.94 0.012 85);
-        --c-fg-mute:   oklch(0.72 0.012 85);
-        --c-fg-dim:    oklch(0.55 0.012 85);
-        --c-accent:    oklch(0.80 0.11 72);
-        --c-accent-hi: oklch(0.88 0.13 78);
-        --c-tag-bg:    oklch(0.24 0.012 250 / 0.6);
-        --c-hot-bg:    oklch(0.80 0.11 72 / 0.12);
-        --c-hot-border:oklch(0.80 0.11 72 / 0.40);
-        --c-grain:     oklch(0.85 0.012 85 / 0.05);
-        --c-grad-warm: oklch(0.22 0.014 250);
-        --c-grad-cool: oklch(0.21 0.012 250);
-      }
+    :root[data-theme="dark"] .collage {
+      /* --c-bg inherits the shared page --bg automatically */
+      --c-rule:      oklch(0.34 0.014 250);
+      --c-rule-soft: oklch(0.27 0.012 250);
+      --c-fg:        oklch(0.94 0.012 85);
+      --c-fg-mute:   oklch(0.72 0.012 85);
+      --c-fg-dim:    oklch(0.55 0.012 85);
+      --c-accent:    oklch(0.80 0.11 72);
+      --c-accent-hi: oklch(0.88 0.13 78);
+      --c-tag-bg:    oklch(0.24 0.012 250 / 0.6);
+      --c-hot-bg:    oklch(0.80 0.11 72 / 0.12);
+      --c-hot-border:oklch(0.80 0.11 72 / 0.40);
+      --c-grain:     oklch(0.85 0.012 85 / 0.05);
+      --c-grad-warm: oklch(0.22 0.014 250);
+      --c-grad-cool: oklch(0.21 0.012 250);
     }
 
     /* subtle paper grain */
@@ -341,15 +366,13 @@
     }
     /* Dark mode: the institutional logos are dark-ink transparent PNGs that
        wash out on the slate bg, so seat each on a light "chip". */
-    @media (prefers-color-scheme: dark) {
-      .collage .logo-frame {
-        background: oklch(0.95 0.008 80);
-        border: 1px solid oklch(0.86 0.010 80);
-        border-radius: 10px;
-        padding: 10px 14px;
-      }
-      .collage .logos.three .logo-frame { padding: 7px 9px; }
+    :root[data-theme="dark"] .collage .logo-frame {
+      background: oklch(0.95 0.008 80);
+      border: 1px solid oklch(0.86 0.010 80);
+      border-radius: 10px;
+      padding: 10px 14px;
     }
+    :root[data-theme="dark"] .collage .logos.three .logo-frame { padding: 7px 9px; }
 
     /* equation panel */
     .collage .panel {
@@ -457,6 +480,20 @@
         <p><strong>Scientist. Builder.</strong> As a Physics Ph.D. I helped discover gravitational waves. I spent 8 years at Amazon launching cybersecurity products like Detective and the new Security Hub. I work on hard problems with messy data and ship real results.</p>
       </div>
       <div class="social">
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/>
+            <line x1="12" y1="1.5" x2="12" y2="3.5"/>
+            <line x1="12" y1="20.5" x2="12" y2="22.5"/>
+            <line x1="3.5" y1="12" x2="1.5" y2="12"/>
+            <line x1="22.5" y1="12" x2="20.5" y2="12"/>
+            <line x1="5.6" y1="5.6" x2="4.2" y2="4.2"/>
+            <line x1="19.8" y1="19.8" x2="18.4" y2="18.4"/>
+            <line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/>
+            <line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/>
+          </svg>
+        </button>
         <a class="linkedin" href="https://www.linkedin.com/in/evan-ochsner/" aria-label="LinkedIn" rel="me noopener" target="_blank">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
@@ -715,6 +752,28 @@
     <path d="${d}" fill="none" stroke="url(#chirpFade)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
     <path d="${d}" fill="none" stroke="url(#chirpFade)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
   `;
+})();
+</script>
+
+<script>
+/* ── Light/dark theme toggle ── */
+(function () {
+  var btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  var root = document.documentElement;
+  function isDark() { return root.getAttribute('data-theme') === 'dark'; }
+  function sync() {
+    var dark = isDark();
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  sync();
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    sync();
+  });
 })();
 </script>
 
